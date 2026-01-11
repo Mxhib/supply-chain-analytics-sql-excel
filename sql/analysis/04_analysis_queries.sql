@@ -89,3 +89,28 @@ WHERE order_date_proper IS NOT NULL
   AND ship_date_proper  IS NOT NULL
 GROUP BY category, sub_category, ship_mode, region;
 
+-- worst average shipping time 
+SELECT *
+FROM shipping_summary
+ORDER BY avg_shipping_days DESC
+LIMIT 15;
+
+-- highest slow delivery percentage
+SELECT *
+FROM shipping_summary
+ORDER BY slow_delivery_pct DESC, total_orders DESC
+LIMIT 15;
+
+-- best express delivery percentage and profit margin
+SELECT *
+FROM shipping_summary
+ORDER BY express_delivery_pct DESC, avg_profit_margin_pct DESC
+LIMIT 15;
+
+
+-- OVERALL SHIPPING PERFORMANCE SUMMARY
+SELECT
+  COUNT(*) AS total_orders,
+  ROUND(AVG(actual_shipping_days)::numeric, 2) AS avg_shipping_days,
+  ROUND(AVG(profit_margin_pct)::numeric, 2) AS avg_profit_margin_pct
+FROM shipping_performance;
