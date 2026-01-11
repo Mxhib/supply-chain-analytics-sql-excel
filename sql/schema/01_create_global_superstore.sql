@@ -1,4 +1,7 @@
+-- Create schema 
+CREATE SCHEMA sc;
 
+ALTER TABLE public.orders SET SCHEMA sc;
 
 -- Create the orders table
 -- Drop existing table if it exists
@@ -32,20 +35,3 @@ CREATE TABLE orders (
     order_priority VARCHAR(20)
 );
 
---Import the CSV
-COPY orders
-FROM '/Users/mohibabbas/Data Analyst Projects/supply-chain-analytics-sql-excel/data/raw/global_superstore.csv'
-WITH (FORMAT csv, HEADER true, ENCODING 'LATIN1');
-
--- Add proper DATE columns
-ALTER TABLE orders ADD COLUMN order_date_proper DATE;
-ALTER TABLE orders ADD COLUMN ship_date_proper DATE;
-
--- Convert text dates to proper dates
-UPDATE orders 
-SET order_date_proper = TO_DATE(order_date, 'DD-MM-YYYY'),
-    ship_date_proper = TO_DATE(ship_date, 'DD-MM-YYYY');
-
---  Verify it worked
-SELECT COUNT(*) FROM orders;
-SELECT order_date, order_date_proper, ship_date, ship_date_proper FROM orders LIMIT 5;
