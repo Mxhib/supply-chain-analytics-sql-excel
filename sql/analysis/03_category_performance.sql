@@ -33,6 +33,8 @@ WHERE order_date_proper IS NOT NULL
   AND ship_date_proper  IS NOT NULL
 GROUP BY category, sub_category;
 
+--Analysis Queries
+
 -- Top Subcategories by profit
 
 SELECT *
@@ -71,4 +73,10 @@ WHERE total_sales >= 20000
 ORDER BY total_profit ASC
 LIMIT 15;
 
+
+
+COPY (
+    SELECT * FROM category_performance
+) TO '/Users/mohibabbas/Desktop/category_performance.csv'
+WITH CSV HEADER;
 

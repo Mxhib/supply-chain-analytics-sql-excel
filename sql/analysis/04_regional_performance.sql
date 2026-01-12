@@ -62,3 +62,10 @@ ORDER BY profit_margin_pct ASC;
 SELECT *
 FROM regional_performance
 ORDER BY slow_delivery_pct DESC;
+
+-- Export regional_performance to CSV
+COPY (
+    SELECT * FROM regional_performance
+) TO '/Users/mohibabbas/Desktop/regional_performance.csv'
+WITH CSV HEADER;
+

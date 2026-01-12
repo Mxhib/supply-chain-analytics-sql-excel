@@ -31,6 +31,7 @@ WHERE order_date_proper IS NOT NULL
   AND ship_date_proper IS NOT NULL
 GROUP BY product_id, product_name, category, sub_category;
 
+-- Analysis Queries
 
 -- Top 15 products by profit
 SELECT *
@@ -57,3 +58,10 @@ FROM product_performance
 WHERE total_sales >= 2000
 ORDER BY shipping_cost_pct DESC
 LIMIT 15;
+
+-- Export product_performance to CSV
+
+COPY (
+    SELECT * FROM product_performance
+) TO '/Users/mohibabbas/Desktop/product_performance.csv'
+WITH CSV HEADER;

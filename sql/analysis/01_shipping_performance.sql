@@ -89,6 +89,8 @@ WHERE order_date_proper IS NOT NULL
   AND ship_date_proper  IS NOT NULL
 GROUP BY category, sub_category, ship_mode, region;
 
+-- Analysis Queries
+
 -- worst average shipping time 
 SELECT *
 FROM shipping_summary
@@ -115,3 +117,8 @@ SELECT
   ROUND(AVG(profit_margin_pct)::numeric, 2) AS avg_profit_margin_pct
 FROM shipping_performance;
 
+-- Export shipping_summary to CSV
+COPY (
+    SELECT * FROM shipping_summary
+) TO '/Users/mohibabbas/Desktop/shipping_summary.csv'
+WITH CSV HEADER;
